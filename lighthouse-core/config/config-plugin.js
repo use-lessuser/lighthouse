@@ -5,6 +5,8 @@
  */
 'use strict';
 
+const {requireAudits, isCoreAudit} = require('./config-helpers');
+
 /**
  * @param {unknown} arr
  * @return {arr is Array<Record<string, unknown>>}
@@ -40,6 +42,18 @@ function assertNoExcessProperties(obj, pluginName, objectName = '') {
   }
 }
 
+const ALLOWED_ARTIFACTS = new Set([
+  'ChromeConsoleMessages',
+  'ImageElements',
+  'LinkElements',
+  'MetaElements',
+  'RuntimeExceptions',
+  'ScriptElements',
+  'ViewportDimensions',
+  'traces',
+  'devtoolsLogs',
+])
+
 /**
  * A set of methods for extracting and validating a Lighthouse plugin config.
  */
@@ -59,7 +73,7 @@ class ConfigPlugin {
       throw new Error(`${pluginName} has an invalid audits array.`);
     }
 
-    return auditsJson.map(auditDefnJson => {
+    const validatedAudits = auditsJson.map(auditDefnJson => {
       const {path, ...invalidRest} = auditDefnJson;
       assertNoExcessProperties(invalidRest, pluginName, 'audit');
 
@@ -70,6 +84,21 @@ class ConfigPlugin {
         path,
       };
     });
+
+    const audits = requireAudits(validatedAudits);
+    if (!audits) throw new Error('Impossible exception');
+
+    for (const audit of audits) {
+      if (audit.path && isCoreAudit(audit.path)) continue;
+
+      for (const artifact of audit.implementation.meta.requiredArtifacts) {
+        if (!ALLOWED_ARTIFACTS.has(artifact)) {
+          throw new Error(`${pluginName} not allowed to use ${artifact} artifact`);
+        }
+      }
+    }
+
+    return validatedAudits;
   }
 
   /**
@@ -145,7 +174,6 @@ class ConfigPlugin {
       manualDescription: manualDescription,
     };
   }
-
 
   /**
    * Extract and validate groups JSON added by the plugin.

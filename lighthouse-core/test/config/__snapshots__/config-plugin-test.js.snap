@@ -4,7 +4,7 @@ exports[`ConfigPlugin accepts a well formed plugin 1`] = `
 Object {
   "audits": Array [
     Object {
-      "path": "not/a/path/audit.js",
+      "path": "path/to/config-plugins/lighthouse-plugin-simple/valid-audit.js",
     },
   ],
   "categories": Object {

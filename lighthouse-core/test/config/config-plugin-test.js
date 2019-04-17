@@ -6,7 +6,11 @@
 'use strict';
 
 const assert = require('assert');
+const path = require('path');
 const ConfigPlugin = require('../../config/config-plugin.js');
+
+const CONFIG_PLUGINS_DIR = path.join(__dirname, '../fixtures/config-plugins/');
+const VALID_PLUGIN_PATH = path.join(CONFIG_PLUGINS_DIR, 'lighthouse-plugin-simple/valid-audit.js');
 
 /* eslint-env jest */
 
@@ -20,7 +24,7 @@ function deepClone(val) {
 
 const nicePluginName = 'lighthouse-plugin-nice-plugin';
 const nicePlugin = {
-  audits: [{path: 'not/a/path/audit.js'}],
+  audits: [{path: VALID_PLUGIN_PATH}],
   groups: {
     'group-a': {
       title: 'Group A',
@@ -43,6 +47,8 @@ const nicePlugin = {
 describe('ConfigPlugin', () => {
   it('accepts a well formed plugin', () => {
     const pluginJson = ConfigPlugin.parsePlugin(nicePlugin, nicePluginName);
+    pluginJson.audits[0].path = pluginJson.audits[0].path
+      .replace(CONFIG_PLUGINS_DIR, 'path/to/config-plugins/');
     expect(pluginJson).toMatchSnapshot();
   });
 
@@ -65,7 +71,7 @@ describe('ConfigPlugin', () => {
   });
 
   it('deals only with the JSON roundtrip version of the passed-in object', () => {
-    const evilAudits = [{path: 'not/a/path/audit.js'}];
+    const evilAudits = [{path: VALID_PLUGIN_PATH}];
     const evilCategory = {
       title: 'Evil Plugin',
       description: 'A plugin that\'s trying to undermine you.',
@@ -101,11 +107,13 @@ describe('ConfigPlugin', () => {
   describe('`audits` array', () => {
     it('correctly passes through the contained audits', () => {
       const pluginClone = deepClone(nicePlugin);
-      pluginClone.audits.push({path: 'second/audit.js'});
+      const secondValidAuditPath = path.join(CONFIG_PLUGINS_DIR,
+          'lighthouse-plugin-simple/valid-audit-2.js');
+      pluginClone.audits.push({path: secondValidAuditPath});
       const pluginJson = ConfigPlugin.parsePlugin(pluginClone, nicePluginName);
 
-      assert.strictEqual(pluginJson.audits[0].path, 'not/a/path/audit.js');
-      assert.strictEqual(pluginJson.audits[1].path, 'second/audit.js');
+      assert.strictEqual(pluginJson.audits[0].path, VALID_PLUGIN_PATH);
+      assert.strictEqual(pluginJson.audits[1].path, secondValidAuditPath);
     });
 
     it('accepts a plugin with no new audits added', () => {
@@ -143,6 +151,14 @@ describe('ConfigPlugin', () => {
       pluginClone.audits[0].path = undefined;
       assert.throws(() => ConfigPlugin.parsePlugin(pluginClone, nicePluginName),
         /^Error: lighthouse-plugin-nice-plugin has a missing audit path/);
+    });
+
+    it('throws if it tries to use disallowed artifacts', () => {
+      const pluginClone = deepClone(nicePlugin);
+      pluginClone.audits[0].path = path.join(CONFIG_PLUGINS_DIR,
+        'lighthouse-plugin-simple/invalid-artifacts-audit.js');
+      assert.throws(() => ConfigPlugin.parsePlugin(pluginClone, nicePluginName),
+        /^Error: lighthouse-plugin-nice-plugin not allowed to use OptimizedImages/);
     });
   });
 

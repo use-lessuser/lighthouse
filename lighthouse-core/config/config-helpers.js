@@ -112,6 +112,26 @@ function expandAuditShorthand(audits) {
 }
 
 /**
+ * @param {string[]} coreList
+ * @param {string} auditPath
+ * @return {boolean}
+ */
+function isCoreAudit_(coreList, auditPath) {
+  // See if the audit is a Lighthouse core audit.
+  const auditPathJs = `${auditPath}.js`;
+  return coreList.some(a => a === auditPathJs);
+}
+
+/** @type {Array<string>|undefined} */
+let memoizedCoreList = undefined;
+/** @param {string} auditPath */
+const isCoreAudit = auditPath => {
+  if (memoizedCoreList) return isCoreAudit_(memoizedCoreList, auditPath);
+  memoizedCoreList = Runner.getAuditList();
+  return isCoreAudit_(memoizedCoreList, auditPath);
+};
+
+/**
  * Take an array of audits and audit paths and require any paths (possibly
  * relative to the optional `configDir`) using `resolveModule`,
  * leaving only an array of AuditDefns.
@@ -125,17 +145,13 @@ function requireAudits(audits, configDir) {
     return null;
   }
 
-  const coreList = Runner.getAuditList();
   const auditDefns = expandedAudits.map(audit => {
     let implementation;
     if ('implementation' in audit) {
       implementation = audit.implementation;
     } else {
-      // See if the audit is a Lighthouse core audit.
-      const auditPathJs = `${audit.path}.js`;
-      const coreAudit = coreList.find(a => a === auditPathJs);
       let requirePath = `../audits/${audit.path}`;
-      if (!coreAudit) {
+      if (!isCoreAudit(audit.path)) {
         // Otherwise, attempt to find it elsewhere. This throws if not found.
         requirePath = resolveModule(audit.path, configDir, 'audit');
       }
@@ -203,6 +219,7 @@ function resolveModule(moduleIdentifier, configDir, category) {
 
 module.exports = {
   mergeOptionsOfItems,
+  isCoreAudit,
   requireAudits,
   resolveModule,
 };
