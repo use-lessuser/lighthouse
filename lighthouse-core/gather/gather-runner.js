@@ -352,6 +352,8 @@ class GatherRunner {
       const gathererResult = gathererResults[gatherer.name] || [];
       gathererResult.push(artifactPromise);
       // Override the gatherer result if we encountered a pageLoadError to ensure the last error wins.
+      // We prefer the pageLoadError here in afterPass because it contains the more specific error
+      // from the network records.
       gathererResults[gatherer.name] = pageLoadError ? [artifactPromise] : gathererResult;
       await artifactPromise.catch(() => {});
       log.timeEnd(status);
