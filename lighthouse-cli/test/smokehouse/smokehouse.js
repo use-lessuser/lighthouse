@@ -50,7 +50,7 @@ function isUnexpectedFatalResult(exitCode, outputPath) {
     && exitCode !== INSECURE_DOCUMENT_REQUEST_EXIT_CODE
     // On runtime errors we exit with a error status code, but still output a report.
     // If the report exists, it wasn't a fatal LH error we need to abort on, it's one we're asserting :)
-    && !fs.existsSync(outputPath)
+    && !fs.existsSync(outputPath);
 }
 
 /**
