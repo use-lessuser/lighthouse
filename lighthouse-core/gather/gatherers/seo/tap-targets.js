@@ -204,10 +204,10 @@ function elementCenterIsAtZAxisTop(el, elCenterPoint) {
 function disableFixedAndStickyElementPointerEvents() {
   const className = 'lighthouse-disable-pointer-events';
   const styleTag = document.createElement('style');
-  styleTag.innerHTML = `.${className} { pointer-events: none !important }`;
+  styleTag.textContent = `.${className} { pointer-events: none !important }`;
   document.body.appendChild(styleTag);
 
-  Array.from(document.querySelectorAll('*')).forEach(el => {
+  document.querySelectorAll('*').forEach(el => {
     const position = getComputedStyle(el).position;
     if (position === 'fixed' || position === 'sticky') {
       el.classList.add(className);
@@ -282,7 +282,7 @@ function gatherTapTargets() {
     let visibleClientRects = clientRects.filter(cr => cr.width !== 0 && cr.height !== 0);
 
     // Filter out client rects that are invisible, e.g because they are in a position absolute element
-    // with a lower z-index than the main contnet
+    // with a lower z-index than the main content.
     // This will also filter out all position fixed or sticky tap targets elements because we disable pointer
     // events on them before running this. That's the correct behavior because whether a position fixed/stick
     // element overlaps with another tap target depends on the scroll position.
