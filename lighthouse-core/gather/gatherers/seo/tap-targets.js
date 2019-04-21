@@ -207,7 +207,7 @@ function disableFixedAndStickyElementPointerEvents() {
   styleTag.textContent = `.${className} { pointer-events: none !important }`;
   document.body.appendChild(styleTag);
 
-  Array.from(document.querySelectorAll('*')).forEach(el => {
+  document.querySelectorAll('*').forEach(el => {
     const position = getComputedStyle(el).position;
     if (position === 'fixed' || position === 'sticky') {
       el.classList.add(className);
