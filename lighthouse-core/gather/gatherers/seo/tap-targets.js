@@ -200,7 +200,11 @@ function elementCenterIsAtZAxisTop(el, elCenterPoint) {
   return topEl === el || el.contains(topEl);
 }
 
-/* istanbul ignore next */
+/**
+ * Finds all position sticky/absolute elements on the page and adds a class
+ * that disables pointer events on them.
+ * @returns {() => void} - undo function to re-enable pointer events
+ */
 function disableFixedAndStickyElementPointerEvents() {
   const className = 'lighthouse-disable-pointer-events';
   const styleTag = document.createElement('style');
