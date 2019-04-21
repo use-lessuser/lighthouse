@@ -282,7 +282,7 @@ function gatherTapTargets() {
     let visibleClientRects = clientRects.filter(cr => cr.width !== 0 && cr.height !== 0);
 
     // Filter out client rects that are invisible, e.g because they are in a position absolute element
-    // with a lower z-index than the main contnet
+    // with a lower z-index than the main content.
     // This will also filter out all position fixed or sticky tap targets elements because we disable pointer
     // events on them before running this. That's the correct behavior because whether a position fixed/stick
     // element overlaps with another tap target depends on the scroll position.
