@@ -7,17 +7,6 @@
 const BASE_URL = 'http://localhost:10200/seo/';
 const URLSearchParams = require('url').URLSearchParams;
 
-const fs = require('fs');
-const tapTargetsTestPageHtml =
-  fs.readFileSync(__dirname + '/../../fixtures/seo/seo-tap-targets.html', 'utf-8');
-const expectedGatheredTapTargetsMatch =
-  /** @type {string[]} */(tapTargetsTestPageHtml.match(/data-gathered-target=".*?"/g));
-const expectedGatheredTapTargets = expectedGatheredTapTargetsMatch.map(gatheredTargetName => ({
-  snippet: new RegExp(gatheredTargetName),
-}));
-const expectedFailingTapTargetsMatch =
-  /** @type {string[]} */(tapTargetsTestPageHtml.match(/data-failing-target/g));
-
 /**
  * @param {[string, string][]} headers
  * @return {string}
@@ -26,6 +15,60 @@ function headersParam(headers) {
   const headerString = new URLSearchParams(headers).toString();
   return new URLSearchParams([['extra_header', headerString]]).toString();
 }
+
+const expectedGatheredTapTargets = [
+  {
+    snippet: /large-link-at-bottom-of-page/,
+  },
+  {
+    snippet: /visible-target/,
+  },
+  {
+    snippet: /target-with-client-rect-outside-scroll-container/,
+  },
+  {
+    snippet: /link-containing-large-inline-block-element/,
+  },
+  {
+    snippet: /link-next-to-link-containing-large-inline-block-element/,
+  },
+  {
+    snippet: /tap-target-containing-other-tap-targets/,
+  },
+  {
+    snippet: /child-client-rect-hidden-by-overflow-hidden/,
+  },
+  {
+    snippet: /tap-target-next-to-child-client-rect-hidden-by-overflow-hidden/,
+  },
+  {
+    snippet: /child-client-rect-overlapping-other-target/,
+    shouldFail: true,
+  },
+  {
+    snippet: /tap-target-overlapped-by-other-targets-position-absolute-child-rect/,
+    shouldFail: true,
+  },
+  {
+    snippet: /position-absolute-tap-target-fully-contained-in-other-target/,
+  },
+  {
+    snippet: /tap-target-fully-containing-position-absolute-target/,
+  },
+  {
+    snippet: /too-small-failing-tap-target/,
+    shouldFail: true,
+  },
+  {
+    snippet: /large-enough-tap-target-next-to-too-small-tap-target/,
+  },
+  {
+    snippet: /links-with-same-link-target-1/,
+  },
+  {
+    snippet: /links-with-same-link-target-2/,
+  },
+];
 
 const failureHeaders = headersParam([[
   'x-robots-tag',
@@ -202,7 +245,7 @@ module.exports = [
         'tap-targets': {
           score: (() => {
             const totalTapTargets = expectedGatheredTapTargets.length;
-            const passingTapTargets = totalTapTargets - expectedFailingTapTargetsMatch.length;
+            const passingTapTargets = expectedGatheredTapTargets.filter(t => !t.shouldFail).length;
             const SCORE_FACTOR = 0.89;
             return Math.round(passingTapTargets / totalTapTargets * SCORE_FACTOR * 100) / 100;
           })(),
@@ -250,7 +293,7 @@ module.exports = [
       },
     },
     artifacts: {
-      TapTargets: expectedGatheredTapTargets,
+      TapTargets: expectedGatheredTapTargets.map(({snippet}) => ({snippet})),
     },
   },
 ];
