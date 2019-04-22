@@ -43,7 +43,7 @@ function assertNoExcessProperties(obj, pluginName, objectName = '') {
 }
 
 const ALLOWED_ARTIFACTS = new Set([
-  'ChromeConsoleMessages',
+  'ConsoleMessages',
   'ImageElements',
   'LinkElements',
   'MetaElements',
