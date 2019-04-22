@@ -52,7 +52,7 @@ const ALLOWED_ARTIFACTS = new Set([
   'ViewportDimensions',
   'traces',
   'devtoolsLogs',
-])
+]);
 
 /**
  * A set of methods for extracting and validating a Lighthouse plugin config.
