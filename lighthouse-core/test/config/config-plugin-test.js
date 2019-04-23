@@ -48,7 +48,11 @@ describe('ConfigPlugin', () => {
   it('accepts a well formed plugin', () => {
     const pluginJson = ConfigPlugin.parsePlugin(nicePlugin, nicePluginName);
     pluginJson.audits[0].path = pluginJson.audits[0].path
-      .replace(CONFIG_PLUGINS_DIR, 'path/to/config-plugins/');
+      // Replace the user-specific path portion
+      .replace(CONFIG_PLUGINS_DIR, 'path/to/config-plugins/')
+      // Replace the os-specific path separator
+      .split(path.sep)
+      .join('/');
     expect(pluginJson).toMatchSnapshot();
   });
 
