@@ -595,7 +595,11 @@ describe('GatherRunner', function() {
 
     await GatherRunner.afterPass({url, driver, passConfig}, {TestGatherer: []});
     // One time for the afterPass of ScrollMcScrolly, two times for the resets of the two gatherers.
-    expect(scrollToSpy).toHaveBeenCalledTimes(3);
+    expect(scrollToSpy.mock.calls).toEqual([
+      [{x: 1000, y: 1000}],
+      [{x: 0, y: 0}],
+      [{x: 0, y: 0}],
+    ]);
   });
 
   it('does as many passes as are required', () => {
