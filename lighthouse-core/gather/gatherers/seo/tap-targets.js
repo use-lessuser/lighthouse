@@ -205,6 +205,7 @@ function elementCenterIsAtZAxisTop(el, elCenterPoint) {
  * that disables pointer events on them.
  * @returns {() => void} - undo function to re-enable pointer events
  */
+/* istanbul ignore next */
 function disableFixedAndStickyElementPointerEvents() {
   const className = 'lighthouse-disable-pointer-events';
   const styleTag = document.createElement('style');
