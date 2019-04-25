@@ -1325,6 +1325,22 @@ class Driver {
   }
 
   /**
+   * @param {{x: number, y: number}} position
+   * @return {Promise<void>}
+   */
+  scrollTo(position) {
+    const scrollExpression = `window.scrollTo(${position.x}, ${position.y})`;
+    return this.evaluateAsync(scrollExpression, {useIsolation: true});
+  }
+
+  /**
+   * @return {Promise<{x: number, y: number}>}
+   */
+  getScrollPosition() {
+    return this.evaluateAsync(`({x: window.scrollX, y: window.scrollY})`, {useIsolation: true});
+  }
+
+  /**
    * @param {{additionalTraceCategories?: string|null}=} settings
    * @return {Promise<void>}
    */
