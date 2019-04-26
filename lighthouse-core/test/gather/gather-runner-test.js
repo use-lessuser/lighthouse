@@ -579,7 +579,7 @@ describe('GatherRunner', function() {
       afterPass(context) {
         context.driver.scrollTo({x: 1000, y: 1000});
       }
-    };
+    }
 
     const url = 'https://example.com';
     const driver = Object.assign({}, fakeDriver);
