@@ -92,7 +92,7 @@ class Driver {
       }
     });
 
-    this.on('Page.frameNavigated', this._clearIsolatedContextId.bind(this));
+    this.on('Page.frameNavigated', () => this._clearIsolatedContextId);
 
     connection.on('protocolevent', this._handleProtocolEvent.bind(this));
 
