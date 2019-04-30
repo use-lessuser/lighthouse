@@ -325,10 +325,10 @@ describe('.evaluateAsync', () => {
       .mockResponse('Runtime.evaluate', Promise.reject(new Error('Cannot find context')))
       .mockResponse('Page.getResourceTree', {frameTree: {frame: {id: 1337}}})
       .mockResponse('Page.createIsolatedWorld', {executionContextId: 9002})
-      .mockResponse('Runtime.evaluate', {result: {value: 2}});
+      .mockResponse('Runtime.evaluate', {result: {value: 'mocked value'}});
 
-    const value = await driver.evaluateAsync('1 + 1', {useIsolation: true});
-    expect(value).toEqual(2);
+    const value = await driver.evaluateAsync('"magic"', {useIsolation: true});
+    expect(value).toEqual('mocked value');
   });
 });
 

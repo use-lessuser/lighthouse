@@ -86,13 +86,15 @@ class Driver {
       this._handleReceivedMessageFromTarget(event, []).catch(this._handleEventError);
     });
 
+    // We use isolated execution contexts for `evaluateAsync` that can be destroyed through navigation
+    // and other page actions. Cleanup our relevant bookkeeping as we see those events.
     this.on('Runtime.executionContextDestroyed', event => {
       if (event.executionContextId === this._isolatedExecutionContextId) {
         this._clearIsolatedContextId();
       }
     });
 
-    this.on('Page.frameNavigated', () => this._clearIsolatedContextId);
+    this.on('Page.frameNavigated', () => this._clearIsolatedContextId());
 
     connection.on('protocolevent', this._handleProtocolEvent.bind(this));
 
@@ -472,7 +474,11 @@ class Driver {
    */
   async evaluateAsync(expression, options = {}) {
     const contextId = options.useIsolation ? await this._getOrCreateIsolatedContextId() : undefined;
-    return this._evaluateInContext(expression, contextId).catch(async err => {
+
+    try {
+      // `await` is not redunant here because we want to `catch` the async errors
+      return await this._evaluateInContext(expression, contextId);
+    } catch (err) {
       // If we were using isolation and the context disappeared on us, retry one more time.
       if (contextId && err.message.includes('Cannot find context')) {
         this._clearIsolatedContextId();
@@ -481,7 +487,7 @@ class Driver {
       }
 
       throw err;
-    });
+    }
   }
 
   /**
