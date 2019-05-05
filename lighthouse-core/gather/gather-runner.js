@@ -302,7 +302,7 @@ class GatherRunner {
     if (!driver.online) pageLoadError = undefined;
 
     if (pageLoadError) {
-      log.error('GatherRunner', pageLoadError.message, passContext.url);
+      log.error('GatherRunner', pageLoadError.friendlyMessage, passContext.url);
       passContext.LighthouseRunWarnings.push(pageLoadError.friendlyMessage);
     }
 
@@ -312,6 +312,7 @@ class GatherRunner {
       networkRecords,
       devtoolsLog,
       trace,
+      pageLoadError,
     };
 
     const apStatus = {msg: `Running afterPass methods`, id: `lh:gather:afterPass`};
@@ -462,7 +463,9 @@ class GatherRunner {
 
       // Run each pass
       let isFirstPass = true;
+      let firstPassPageLoadError;
       for (const passConfig of passes) {
+        if (firstPassPageLoadError) continue;
         const passContext = {
           driver: options.driver,
           // If the main document redirects, we'll update this to keep track
@@ -490,6 +493,7 @@ class GatherRunner {
         const passData = await GatherRunner.afterPass(passContext, gathererResults);
 
         if (isFirstPass) {
+          firstPassPageLoadError = passData.pageLoadError;
           baseArtifacts.Stacks = await stacksGatherer(passContext);
         }
 

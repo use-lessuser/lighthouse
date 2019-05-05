@@ -8,6 +8,7 @@ import _NetworkNode = require('../lighthouse-core/lib/dependency-graph/network-n
 import _CPUNode = require('../lighthouse-core/lib/dependency-graph/cpu-node');
 import _Simulator = require('../lighthouse-core/lib/dependency-graph/simulator/simulator');
 import Driver = require('../lighthouse-core/gather/driver');
+import LighthouseError = require('../lighthouse-core/lib/lh-error');
 
 declare global {
   module LH.Gatherer {
@@ -27,6 +28,7 @@ declare global {
       networkRecords: Array<Artifacts.NetworkRequest>;
       devtoolsLog: DevtoolsLog;
       trace?: Trace;
+      pageLoadError?: LighthouseError
     }
 
     namespace Simulation {
