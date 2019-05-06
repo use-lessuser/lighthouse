@@ -458,7 +458,7 @@ class Util {
         networkThrottling = `${Util.formatNumber(requestLatencyMs)}${NBSP}ms HTTP RTT, ` +
           `${Util.formatNumber(throttling.downloadThroughputKbps)}${NBSP}Kbps down, ` +
           `${Util.formatNumber(throttling.uploadThroughputKbps)}${NBSP}Kbps up (DevTools)`;
-        summary = 'Throttled Slow 4G network';
+        summary = 'Throttled Slow 4G network = ECT 4G';
         break;
       }
       case 'simulate': {
@@ -466,7 +466,7 @@ class Util {
         cpuThrottling = `${Util.formatNumber(cpuSlowdownMultiplier)}x slowdown (Simulated)`;
         networkThrottling = `${Util.formatNumber(rttMs)}${NBSP}ms TCP RTT, ` +
           `${Util.formatNumber(throughputKbps)}${NBSP}Kbps throughput (Simulated)`;
-        summary = 'Simulated Slow 4G network';
+        summary = 'Simulated Slow 4G network = ECT 4G';
         break;
       }
       default:
