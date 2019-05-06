@@ -118,7 +118,7 @@ describe('util helpers', () => {
     });
 
     // eslint-disable-next-line max-len
-    assert.equal(descriptions.networkThrottling, '565\xa0ms HTTP RTT, 1,400\xa0Kbps down, 600\xa0Kbps up (DevTools)');
+    assert.equal(descriptions.networkThrottling, 'ECT 4G - 565\xa0ms HTTP RTT, 1,400\xa0Kbps down, 600\xa0Kbps up (DevTools)');
     assert.equal(descriptions.cpuThrottling, '4.5x slowdown (DevTools)');
   });
 
@@ -133,7 +133,7 @@ describe('util helpers', () => {
     });
 
     // eslint-disable-next-line max-len
-    assert.equal(descriptions.networkThrottling, '150\xa0ms TCP RTT, 1,600\xa0Kbps throughput (Simulated)');
+    assert.equal(descriptions.networkThrottling, 'ECT 4G - 150\xa0ms TCP RTT, 1,600\xa0Kbps throughput (Simulated)');
     assert.equal(descriptions.cpuThrottling, '2x slowdown (Simulated)');
   });
 
