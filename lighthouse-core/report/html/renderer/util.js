@@ -457,16 +457,16 @@ class Util {
         cpuThrottling = `${Util.formatNumber(cpuSlowdownMultiplier)}x slowdown (DevTools)`;
         networkThrottling = `${Util.formatNumber(requestLatencyMs)}${NBSP}ms HTTP RTT, ` +
           `${Util.formatNumber(throttling.downloadThroughputKbps)}${NBSP}Kbps down, ` +
-          `${Util.formatNumber(throttling.uploadThroughputKbps)}${NBSP}Kbps up (DevTools)`;
-        summary = 'Throttled Slow 4G network = ECT 4G';
+          `${Util.formatNumber(throttling.uploadThroughputKbps)}${NBSP}Kbps up (DevTools/ECT 4G)`;
+        summary = 'Throttled Slow 4G network (ECT 4G)';
         break;
       }
       case 'simulate': {
         const {cpuSlowdownMultiplier, rttMs, throughputKbps} = throttling;
         cpuThrottling = `${Util.formatNumber(cpuSlowdownMultiplier)}x slowdown (Simulated)`;
         networkThrottling = `${Util.formatNumber(rttMs)}${NBSP}ms TCP RTT, ` +
-          `${Util.formatNumber(throughputKbps)}${NBSP}Kbps throughput (Simulated)`;
-        summary = 'Simulated Slow 4G network = ECT 4G';
+          `${Util.formatNumber(throughputKbps)}${NBSP}Kbps throughput (Simulated/ECT 4G)`;
+        summary = 'Simulated Slow 4G network (ECT 4G)';
         break;
       }
       default:
