@@ -96,7 +96,34 @@ describe('CategoryRenderer', () => {
         score: 0,
       },
     });
+    assert.ok(auditDOM.matches('.lh-audit--informative'));
+  });
 
+  it('adds a pass/average/fail class for non-informative audits', () => {
+    const auditDOM = renderer.renderAudit({
+      id: 'not-informative',
+      result: {
+        title: 'Not informative',
+        description: 'help text',
+        scoreDisplayMode: 'numeric',
+        score: 0,
+      },
+    });
+    assert.ok(auditDOM.matches('.lh-audit--fail'));
+  });
+
+  it('does not add a pass/average/fail class for informative audits', () => {
+    const auditDOM = renderer.renderAudit({
+      id: 'informative',
+      result: {
+        title: 'It informs',
+        description: 'help text',
+        scoreDisplayMode: 'informative',
+        score: 0,
+      },
+    });
+    assert.equal(auditDOM.classList.length, 2);
+    assert.ok(auditDOM.matches('.lh-audit'));
     assert.ok(auditDOM.matches('.lh-audit--informative'));
   });
 
@@ -216,7 +243,7 @@ describe('CategoryRenderer', () => {
       const categoryDOM = renderer.render(category, sampleResults.categoryGroups);
 
       const gauge = categoryDOM.querySelector('.lh-gauge__percentage');
-      assert.equal(gauge.textContent.trim(), '36', 'score is 0-100');
+      assert.equal(gauge.textContent.trim(), '38', 'score is 0-100');
 
       const score = categoryDOM.querySelector('.lh-category-header');
       const value = categoryDOM.querySelector('.lh-gauge__percentage');

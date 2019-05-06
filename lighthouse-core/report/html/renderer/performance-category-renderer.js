@@ -122,9 +122,14 @@ class PerformanceCategoryRenderer extends CategoryRenderer {
       element.appendChild(this.renderCategoryHeader(category, groups));
     }
 
-    // Metrics
+    // Metrics.
     const metricAudits = category.auditRefs.filter(audit => audit.group === 'metrics');
     const metricAuditsEl = this.renderAuditGroup(groups.metrics);
+
+    // Metric descriptions toggle.
+    const toggleTmpl = this.dom.cloneTemplate('#tmpl-lh-metrics-toggle', this.templateContext);
+    const toggleEl = this.dom.find('.lh-metrics-toggle', toggleTmpl);
+    metricAuditsEl.prepend(...toggleEl.childNodes);
 
     const keyMetrics = metricAudits.filter(a => a.weight >= 3);
     const otherMetrics = metricAudits.filter(a => a.weight < 3);

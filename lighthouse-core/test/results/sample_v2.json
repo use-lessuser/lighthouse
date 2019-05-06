@@ -193,8 +193,8 @@
     },
     "max-potential-fid": {
       "id": "max-potential-fid",
-      "title": "Max Potential FID",
-      "description": "The potential First Input Delay that your users could experience is the duration, in milliseconds, of the longest task.",
+      "title": "Max Potential First Input Delay",
+      "description": "The maximum potential First Input Delay that your users could experience is the duration, in milliseconds, of the longest task. [Learn more](https://developers.google.com/web/updates/2018/05/first-input-delay).",
       "score": 0.92,
       "scoreDisplayMode": "numeric",
       "numericValue": 122.537,
@@ -1273,6 +1273,193 @@
       "explanation": "No usable web app manifest found on page.",
       "warnings": []
     },
+    "performance-budget": {
+      "id": "performance-budget",
+      "title": "Performance budget",
+      "description": "Keep the quantity and size of network requests under the targets set by the provided performance budget.",
+      "score": null,
+      "scoreDisplayMode": "informative",
+      "details": {
+        "type": "table",
+        "headings": [
+          {
+            "key": "label",
+            "itemType": "text",
+            "text": "Resource Type"
+          },
+          {
+            "key": "requestCount",
+            "itemType": "numeric",
+            "text": "Requests"
+          },
+          {
+            "key": "size",
+            "itemType": "bytes",
+            "text": "Transfer Size"
+          },
+          {
+            "key": "countOverBudget",
+            "itemType": "text",
+            "text": ""
+          },
+          {
+            "key": "sizeOverBudget",
+            "itemType": "bytes",
+            "text": "Over Budget"
+          }
+        ],
+        "items": [
+          {
+            "resourceType": "script",
+            "label": "Script",
+            "requestCount": 4,
+            "size": 103675,
+            "countOverBudget": "2 requests",
+            "sizeOverBudget": 72955
+          },
+          {
+            "resourceType": "total",
+            "label": "Total",
+            "requestCount": 18,
+            "size": 160738,
+            "countOverBudget": "8 requests",
+            "sizeOverBudget": 58338
+          },
+          {
+            "resourceType": "other",
+            "label": "Other",
+            "requestCount": 2,
+            "size": 12861,
+            "sizeOverBudget": 7741
+          },
+          {
+            "resourceType": "third-party",
+            "label": "Third-party",
+            "requestCount": 2,
+            "size": 30174,
+            "countOverBudget": "1 request",
+            "sizeOverBudget": 4574
+          },
+          {
+            "resourceType": "stylesheet",
+            "label": "Stylesheet",
+            "requestCount": 7,
+            "size": 5352,
+            "countOverBudget": "5 requests",
+            "sizeOverBudget": 232
+          },
+          {
+            "resourceType": "image",
+            "label": "Image",
+            "requestCount": 2,
+            "size": 24741
+          },
+          {
+            "resourceType": "media",
+            "label": "Media",
+            "requestCount": 0,
+            "size": 0
+          },
+          {
+            "resourceType": "font",
+            "label": "Font",
+            "requestCount": 0,
+            "size": 0
+          },
+          {
+            "resourceType": "document",
+            "label": "Document",
+            "requestCount": 3,
+            "size": 14109,
+            "countOverBudget": "2 requests"
+          }
+        ]
+      }
+    },
+    "resource-summary": {
+      "id": "resource-summary",
+      "title": "Keep request counts low and transfer sizes small",
+      "description": "To set budgets for the quantity and size of page resources, add a budget.json file.",
+      "score": null,
+      "scoreDisplayMode": "informative",
+      "displayValue": "18 requests • 157 KB",
+      "details": {
+        "type": "table",
+        "headings": [
+          {
+            "key": "label",
+            "itemType": "text",
+            "text": "Resource Type"
+          },
+          {
+            "key": "requestCount",
+            "itemType": "numeric",
+            "text": "Requests"
+          },
+          {
+            "key": "size",
+            "itemType": "bytes",
+            "text": "Transfer Size"
+          }
+        ],
+        "items": [
+          {
+            "resourceType": "total",
+            "label": "Total",
+            "requestCount": 18,
+            "size": 160738
+          },
+          {
+            "resourceType": "script",
+            "label": "Script",
+            "requestCount": 4,
+            "size": 103675
+          },
+          {
+            "resourceType": "image",
+            "label": "Image",
+            "requestCount": 2,
+            "size": 24741
+          },
+          {
+            "resourceType": "document",
+            "label": "Document",
+            "requestCount": 3,
+            "size": 14109
+          },
+          {
+            "resourceType": "other",
+            "label": "Other",
+            "requestCount": 2,
+            "size": 12861
+          },
+          {
+            "resourceType": "stylesheet",
+            "label": "Stylesheet",
+            "requestCount": 7,
+            "size": 5352
+          },
+          {
+            "resourceType": "media",
+            "label": "Media",
+            "requestCount": 0,
+            "size": 0
+          },
+          {
+            "resourceType": "font",
+            "label": "Font",
+            "requestCount": 0,
+            "size": 0
+          },
+          {
+            "resourceType": "third-party",
+            "label": "Third-party",
+            "requestCount": 2,
+            "size": 30174
+          }
+        ]
+      }
+    },
     "pwa-cross-browser": {
       "id": "pwa-cross-browser",
       "title": "Site works cross-browser",
@@ -1910,7 +2097,7 @@
       "score": 0.58,
       "scoreDisplayMode": "numeric",
       "numericValue": 103455,
-      "displayValue": "11 resources found",
+      "displayValue": "10 resources found",
       "details": {
         "type": "table",
         "headings": [
@@ -1928,7 +2115,7 @@
           {
             "key": "totalBytes",
             "itemType": "bytes",
-            "text": "Size (KB)",
+            "text": "Size",
             "displayUnit": "kb",
             "granularity": 1
           }
@@ -2003,13 +2190,6 @@
             "cacheHitProbability": 0,
             "totalBytes": 144,
             "wastedBytes": 144
-          },
-          {
-            "url": "blob:http://localhost:10200/ae0eac03-ab9b-4a6a-b299-f5212153e277",
-            "cacheLifetimeMs": 0,
-            "cacheHitProbability": 0,
-            "totalBytes": 0,
-            "wastedBytes": 0
           }
         ],
         "summary": {
@@ -2036,7 +2216,7 @@
           {
             "key": "totalBytes",
             "itemType": "bytes",
-            "text": "Size (KB)"
+            "text": "Size"
           }
         ],
         "items": [
@@ -2119,12 +2299,12 @@
           {
             "key": "totalBytes",
             "valueType": "bytes",
-            "label": "Size (KB)"
+            "label": "Size"
           },
           {
             "key": "wastedMs",
             "valueType": "timespanMs",
-            "label": "Potential Savings (ms)"
+            "label": "Potential Savings"
           }
         ],
         "items": [
@@ -2193,12 +2373,12 @@
           {
             "key": "totalBytes",
             "valueType": "bytes",
-            "label": "Size (KB)"
+            "label": "Size"
           },
           {
             "key": "wastedBytes",
             "valueType": "bytes",
-            "label": "Potential Savings (KB)"
+            "label": "Potential Savings"
           }
         ],
         "items": [
@@ -2254,12 +2434,12 @@
           {
             "key": "totalBytes",
             "valueType": "bytes",
-            "label": "Size (KB)"
+            "label": "Size"
           },
           {
             "key": "wastedBytes",
             "valueType": "bytes",
-            "label": "Potential Savings (KB)"
+            "label": "Potential Savings"
           }
         ],
         "items": [
@@ -2311,12 +2491,12 @@
           {
             "key": "totalBytes",
             "valueType": "bytes",
-            "label": "Size (KB)"
+            "label": "Size"
           },
           {
             "key": "wastedBytes",
             "valueType": "bytes",
-            "label": "Potential Savings (KB)"
+            "label": "Potential Savings"
           }
         ],
         "items": [
@@ -2895,15 +3075,52 @@
     },
     "tap-targets": {
       "id": "tap-targets",
-      "title": "Tap targets are sized appropriately",
+      "title": "Tap targets are not sized appropriately",
       "description": "Interactive elements like buttons and links should be large enough (48x48px), and have enough space around them, to be easy enough to tap without overlapping onto other elements. [Learn more](https://developers.google.com/web/fundamentals/accessibility/accessible-styles#multi-device_responsive_design).",
-      "score": 1,
+      "score": 0,
       "scoreDisplayMode": "binary",
-      "displayValue": "100% appropriately sized tap targets",
+      "displayValue": "0% appropriately sized tap targets",
       "details": {
         "type": "table",
-        "headings": [],
-        "items": []
+        "headings": [
+          {
+            "key": "tapTarget",
+            "itemType": "node",
+            "text": "Tap Target"
+          },
+          {
+            "key": "size",
+            "itemType": "text",
+            "text": "Size"
+          },
+          {
+            "key": "overlappingTarget",
+            "itemType": "node",
+            "text": "Overlapping Target"
+          }
+        ],
+        "items": [
+          {
+            "tapTarget": {
+              "type": "node",
+              "snippet": "<button class=\"small-button\">Do something</button>",
+              "path": "3,HTML,1,BODY,17,BUTTON",
+              "selector": "body > button.small-button"
+            },
+            "overlappingTarget": {
+              "type": "node",
+              "snippet": "<button class=\"small-button\">Do something else</button>",
+              "path": "3,HTML,1,BODY,18,BUTTON",
+              "selector": "body > button.small-button"
+            },
+            "tapTargetScore": 864,
+            "overlappingTargetScore": 720,
+            "overlapScoreRatio": 0.8333333333333334,
+            "size": "200x18",
+            "width": 200,
+            "height": 18
+          }
+        ]
       }
     },
     "hreflang": {
@@ -2965,7 +3182,113 @@
     "disableStorageReset": false,
     "emulatedFormFactor": "mobile",
     "channel": "cli",
-    "budgets": null,
+    "budgets": [
+      {
+        "resourceSizes": [
+          {
+            "resourceType": "total",
+            "budget": 100
+          },
+          {
+            "resourceType": "stylesheet",
+            "budget": 5
+          },
+          {
+            "resourceType": "image",
+            "budget": 30
+          },
+          {
+            "resourceType": "media",
+            "budget": 0
+          },
+          {
+            "resourceType": "font",
+            "budget": 20
+          },
+          {
+            "resourceType": "script",
+            "budget": 30
+          },
+          {
+            "resourceType": "document",
+            "budget": 15
+          },
+          {
+            "resourceType": "other",
+            "budget": 5
+          },
+          {
+            "resourceType": "third-party",
+            "budget": 25
+          }
+        ],
+        "resourceCounts": [
+          {
+            "resourceType": "total",
+            "budget": 10
+          },
+          {
+            "resourceType": "stylesheet",
+            "budget": 2
+          },
+          {
+            "resourceType": "image",
+            "budget": 2
+          },
+          {
+            "resourceType": "media",
+            "budget": 0
+          },
+          {
+            "resourceType": "font",
+            "budget": 1
+          },
+          {
+            "resourceType": "script",
+            "budget": 2
+          },
+          {
+            "resourceType": "document",
+            "budget": 1
+          },
+          {
+            "resourceType": "other",
+            "budget": 2
+          },
+          {
+            "resourceType": "third-party",
+            "budget": 1
+          }
+        ],
+        "timings": [
+          {
+            "metric": "first-contentful-paint",
+            "budget": 3000,
+            "tolerance": 100
+          },
+          {
+            "metric": "first-cpu-idle",
+            "budget": 2900,
+            "tolerance": 100
+          },
+          {
+            "metric": "interactive",
+            "budget": 2900,
+            "tolerance": 100
+          },
+          {
+            "metric": "first-meaningful-paint",
+            "budget": 2000,
+            "tolerance": 100
+          },
+          {
+            "metric": "estimated-input-latency",
+            "budget": 100,
+            "tolerance": 100
+          }
+        ]
+      }
+    ],
     "locale": "en-US",
     "blockedUrlPatterns": null,
     "additionalTraceCategories": null,
@@ -3005,12 +3328,12 @@
           "group": "metrics"
         },
         {
-          "id": "estimated-input-latency",
+          "id": "max-potential-fid",
           "weight": 0,
           "group": "metrics"
         },
         {
-          "id": "max-potential-fid",
+          "id": "estimated-input-latency",
           "weight": 0
         },
         {
@@ -3124,6 +3447,15 @@
           "group": "diagnostics"
         },
         {
+          "id": "performance-budget",
+          "weight": 0
+        },
+        {
+          "id": "resource-summary",
+          "weight": 0,
+          "group": "diagnostics"
+        },
+        {
           "id": "network-requests",
           "weight": 0
         },
@@ -3216,12 +3548,12 @@
         },
         {
           "id": "bypass",
-          "weight": 10,
+          "weight": 3,
           "group": "a11y-navigation"
         },
         {
           "id": "color-contrast",
-          "weight": 6,
+          "weight": 3,
           "group": "a11y-color-contrast"
         },
         {
@@ -3236,12 +3568,12 @@
         },
         {
           "id": "document-title",
-          "weight": 2,
+          "weight": 3,
           "group": "a11y-names-labels"
         },
         {
           "id": "duplicate-id",
-          "weight": 5,
+          "weight": 1,
           "group": "a11y-best-practices"
         },
         {
@@ -3251,7 +3583,7 @@
         },
         {
           "id": "html-has-lang",
-          "weight": 4,
+          "weight": 3,
           "group": "a11y-language"
         },
         {
@@ -3261,7 +3593,7 @@
         },
         {
           "id": "image-alt",
-          "weight": 8,
+          "weight": 10,
           "group": "a11y-names-labels"
         },
         {
@@ -3281,7 +3613,7 @@
         },
         {
           "id": "link-name",
-          "weight": 9,
+          "weight": 3,
           "group": "a11y-names-labels"
         },
         {
@@ -3301,12 +3633,12 @@
         },
         {
           "id": "meta-viewport",
-          "weight": 3,
+          "weight": 10,
           "group": "a11y-best-practices"
         },
         {
           "id": "object-alt",
-          "weight": 4,
+          "weight": 3,
           "group": "a11y-names-labels"
         },
         {
@@ -3385,7 +3717,7 @@
         }
       ],
       "id": "accessibility",
-      "score": 0.36
+      "score": 0.38
     },
     "best-practices": {
       "title": "Best Practices",
@@ -3530,7 +3862,7 @@
         }
       ],
       "id": "seo",
-      "score": 0.82
+      "score": 0.73
     },
     "pwa": {
       "title": "Progressive Web App",
@@ -3621,6 +3953,10 @@
     "load-opportunities": {
       "title": "Opportunities",
       "description": "These optimizations can speed up your page load."
+    },
+    "budgets": {
+      "title": "Budgets",
+      "description": "Performance budgets set standards for the performance of your site."
     },
     "diagnostics": {
       "title": "Diagnostics",
@@ -4087,6 +4423,24 @@
       {
         "startTime": 0,
         "name": "lh:audit:offline-start-url",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:performance-budget",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:computed:ResourceSummary",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:resource-summary",
         "duration": 100,
         "entryType": "measure"
       },
@@ -4631,6 +4985,7 @@
       "passedAuditsGroupTitle": "Passed audits",
       "snippetCollapseButtonLabel": "Collapse snippet",
       "snippetExpandButtonLabel": "Expand snippet",
+      "thirdPartyResourcesLabel": "Show 3rd-party resources",
       "toplevelWarningsMessage": "There were issues affecting this run of Lighthouse:",
       "varianceDisclaimer": "Values are estimated and may vary.",
       "warningAuditsGroupTitle": "Passed audits but with warnings",
@@ -4865,6 +5220,95 @@
       "lighthouse-core/audits/network-server-latency.js | description": [
         "audits[network-server-latency].description"
       ],
+      "lighthouse-core/audits/performance-budget.js | title": [
+        "audits[performance-budget].title"
+      ],
+      "lighthouse-core/audits/performance-budget.js | description": [
+        "audits[performance-budget].description"
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | scriptResourceType": [
+        "audits[performance-budget].details.items[0].label",
+        "audits[resource-summary].details.items[1].label"
+      ],
+      "lighthouse-core/audits/performance-budget.js | requestCountOverBudget": [
+        {
+          "values": {
+            "count": 2
+          },
+          "path": "audits[performance-budget].details.items[0].countOverBudget"
+        },
+        {
+          "values": {
+            "count": 8
+          },
+          "path": "audits[performance-budget].details.items[1].countOverBudget"
+        },
+        {
+          "values": {
+            "count": 1
+          },
+          "path": "audits[performance-budget].details.items[3].countOverBudget"
+        },
+        {
+          "values": {
+            "count": 5
+          },
+          "path": "audits[performance-budget].details.items[4].countOverBudget"
+        },
+        {
+          "values": {
+            "count": 2
+          },
+          "path": "audits[performance-budget].details.items[8].countOverBudget"
+        }
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | totalResourceType": [
+        "audits[performance-budget].details.items[1].label",
+        "audits[resource-summary].details.items[0].label"
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | otherResourceType": [
+        "audits[performance-budget].details.items[2].label",
+        "audits[resource-summary].details.items[4].label"
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | thirdPartyResourceType": [
+        "audits[performance-budget].details.items[3].label",
+        "audits[resource-summary].details.items[8].label"
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | stylesheetResourceType": [
+        "audits[performance-budget].details.items[4].label",
+        "audits[resource-summary].details.items[5].label"
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | imageResourceType": [
+        "audits[performance-budget].details.items[5].label",
+        "audits[resource-summary].details.items[2].label"
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | mediaResourceType": [
+        "audits[performance-budget].details.items[6].label",
+        "audits[resource-summary].details.items[6].label"
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | fontResourceType": [
+        "audits[performance-budget].details.items[7].label",
+        "audits[resource-summary].details.items[7].label"
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | documentResourceType": [
+        "audits[performance-budget].details.items[8].label",
+        "audits[resource-summary].details.items[3].label"
+      ],
+      "lighthouse-core/audits/resource-summary.js | title": [
+        "audits[resource-summary].title"
+      ],
+      "lighthouse-core/audits/resource-summary.js | description": [
+        "audits[resource-summary].description"
+      ],
+      "lighthouse-core/audits/resource-summary.js | displayValue": [
+        {
+          "values": {
+            "requestCount": 18,
+            "byteCount": 160738
+          },
+          "path": "audits[resource-summary].displayValue"
+        }
+      ],
       "lighthouse-core/audits/accessibility/accesskeys.js | title": [
         "audits.accesskeys.title"
       ],
@@ -5092,7 +5536,7 @@
       "lighthouse-core/audits/byte-efficiency/uses-long-cache-ttl.js | displayValue": [
         {
           "values": {
-            "itemCount": 11
+            "itemCount": 10
           },
           "path": "audits[uses-long-cache-ttl].displayValue"
         }
@@ -5106,7 +5550,8 @@
         "audits[render-blocking-resources].details.headings[1].label",
         "audits[unminified-javascript].details.headings[1].label",
         "audits[uses-webp-images].details.headings[2].label",
-        "audits[uses-text-compression].details.headings[1].label"
+        "audits[uses-text-compression].details.headings[1].label",
+        "audits[tap-targets].details.headings[1].text"
       ],
       "lighthouse-core/audits/byte-efficiency/total-byte-weight.js | title": [
         "audits[total-byte-weight].title"
@@ -5142,8 +5587,11 @@
           "path": "audits[render-blocking-resources].displayValue"
         }
       ],
-      "lighthouse-core/lib/i18n/i18n.js | columnWastedMs": [
-        "audits[render-blocking-resources].details.headings[2].label"
+      "lighthouse-core/lib/i18n/i18n.js | columnWastedBytes": [
+        "audits[render-blocking-resources].details.headings[2].label",
+        "audits[unminified-javascript].details.headings[2].label",
+        "audits[uses-webp-images].details.headings[3].label",
+        "audits[uses-text-compression].details.headings[2].label"
       ],
       "lighthouse-core/audits/byte-efficiency/unminified-css.js | title": [
         "audits[unminified-css].title"
@@ -5176,11 +5624,6 @@
           },
           "path": "audits[uses-text-compression].displayValue"
         }
-      ],
-      "lighthouse-core/lib/i18n/i18n.js | columnWastedBytes": [
-        "audits[unminified-javascript].details.headings[2].label",
-        "audits[uses-webp-images].details.headings[3].label",
-        "audits[uses-text-compression].details.headings[2].label"
       ],
       "lighthouse-core/audits/byte-efficiency/unused-css-rules.js | title": [
         "audits[unused-css-rules].title"
@@ -5294,7 +5737,7 @@
       "lighthouse-core/audits/seo/robots-txt.js | description": [
         "audits[robots-txt].description"
       ],
-      "lighthouse-core/audits/seo/tap-targets.js | title": [
+      "lighthouse-core/audits/seo/tap-targets.js | failureTitle": [
         "audits[tap-targets].title"
       ],
       "lighthouse-core/audits/seo/tap-targets.js | description": [
@@ -5303,10 +5746,16 @@
       "lighthouse-core/audits/seo/tap-targets.js | displayValue": [
         {
           "values": {
-            "decimalProportion": 1
+            "decimalProportion": 0
           },
           "path": "audits[tap-targets].displayValue"
         }
+      ],
+      "lighthouse-core/audits/seo/tap-targets.js | tapTargetHeader": [
+        "audits[tap-targets].details.headings[0].text"
+      ],
+      "lighthouse-core/audits/seo/tap-targets.js | overlappingTargetHeader": [
+        "audits[tap-targets].details.headings[2].text"
       ],
       "lighthouse-core/audits/seo/hreflang.js | title": [
         "audits.hreflang.title"
@@ -5361,6 +5810,12 @@
       ],
       "lighthouse-core/config/default-config.js | loadOpportunitiesGroupDescription": [
         "categoryGroups[load-opportunities].description"
+      ],
+      "lighthouse-core/config/default-config.js | budgetsGroupTitle": [
+        "categoryGroups.budgets.title"
+      ],
+      "lighthouse-core/config/default-config.js | budgetsGroupDescription": [
+        "categoryGroups.budgets.description"
       ],
       "lighthouse-core/config/default-config.js | diagnosticsGroupTitle": [
         "categoryGroups.diagnostics.title"
@@ -5491,7 +5946,7 @@
     {
       "id": "wordpress",
       "title": "WordPress",
-      "iconDataURL": "data:image/svg+xml,%3Csvg viewBox='0 0 122.5 122.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2321759b'%3E%3Cpath d='M8.7 61.3c0 20.8 12.1 38.7 29.6 47.3l-25-68.7c-3 6.5-4.6 13.7-4.6 21.4zM96.7 58.6c0-6.5-2.3-11-4.3-14.5-2.7-4.3-5.2-8-5.2-12.3 0-4.8 3.7-9.3 8.9-9.3h.7a52.4 52.4 0 0 0-79.4 9.9h3.3c5.5 0 14-.6 14-.6 2.9-.2 3.2 4 .4 4.3 0 0-2.9.4-6 .5l19.1 57L59.7 59l-8.2-22.5c-2.8-.1-5.5-.5-5.5-.5-2.8-.1-2.5-4.5.3-4.3 0 0 8.7.7 13.9.7 5.5 0 14-.7 14-.7 2.8-.2 3.2 4 .3 4.3 0 0-2.8.4-6 .5l19 56.5 5.2-17.5c2.3-7.3 4-12.5 4-17z'/%3E%3Cpath d='M62.2 65.9l-15.8 45.8a52.6 52.6 0 0 0 32.3-.9l-.4-.7zM107.4 36a49.6 49.6 0 0 1-3.6 24.2l-16.1 46.5A52.5 52.5 0 0 0 107.4 36z'/%3E%3Cpath d='M61.3 0a61.3 61.3 0 1 0 .1 122.7A61.3 61.3 0 0 0 61.3 0zm0 119.7a58.5 58.5 0 1 1 .1-117 58.5 58.5 0 0 1-.1 117z'/%3E%3C/g%3E%3C/svg%3E",
+      "iconDataURL": "data:image/svg+xml,%3Csvg viewBox='0 0 122.5 122.5' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%232f3439'%3E%3Cpath d='M8.7 61.3c0 20.8 12.1 38.7 29.6 47.3l-25-68.7c-3 6.5-4.6 13.7-4.6 21.4zM96.7 58.6c0-6.5-2.3-11-4.3-14.5-2.7-4.3-5.2-8-5.2-12.3 0-4.8 3.7-9.3 8.9-9.3h.7a52.4 52.4 0 0 0-79.4 9.9h3.3c5.5 0 14-.6 14-.6 2.9-.2 3.2 4 .4 4.3 0 0-2.9.4-6 .5l19.1 57L59.7 59l-8.2-22.5c-2.8-.1-5.5-.5-5.5-.5-2.8-.1-2.5-4.5.3-4.3 0 0 8.7.7 13.9.7 5.5 0 14-.7 14-.7 2.8-.2 3.2 4 .3 4.3 0 0-2.8.4-6 .5l19 56.5 5.2-17.5c2.3-7.3 4-12.5 4-17z'/%3E%3Cpath d='M62.2 65.9l-15.8 45.8a52.6 52.6 0 0 0 32.3-.9l-.4-.7zM107.4 36a49.6 49.6 0 0 1-3.6 24.2l-16.1 46.5A52.5 52.5 0 0 0 107.4 36z'/%3E%3Cpath d='M61.3 0a61.3 61.3 0 1 0 .1 122.7A61.3 61.3 0 0 0 61.3 0zm0 119.7a58.5 58.5 0 1 1 .1-117 58.5 58.5 0 0 1-.1 117z'/%3E%3C/g%3E%3C/svg%3E",
       "descriptions": {
         "unused-css-rules": "Consider reducing, or switching, the number of [WordPress plugins](https://wordpress.org/plugins/) loading unused CSS in your page. To identify plugins that are adding extraneous CSS, try running [code coverage](https://developers.google.com/web/updates/2017/04/devtools-release-notes#coverage) in Chrome DevTools. You can identify the theme/plugin responsible from the URL of the stylesheet. Look out for plugins that have many stylesheets in the list which have a lot of red in code coverage. A plugin should only enqueue a stylesheet if it is actually used on the page.",
         "uses-webp-images": "Consider using a [plugin](https://wordpress.org/plugins/search/convert+webp/) or service that will automatically convert your uploaded images to the optimal formats.",
