@@ -234,6 +234,7 @@ limitations under the License.
     .lh-topbar__logo {
       width: var(--topbar-icon-size);
       height: var(--topbar-icon-size);
+      user-select: none;
     }
     .lh-topbar__logo .shape {
       fill: var(--body-text-color);
@@ -267,7 +268,7 @@ limitations under the License.
     }
     .lh-export__button.active + .lh-export__dropdown {
       opacity: 1;
-      clip: rect(0, 187px, 242px, 0);
+      clip: rect(-1px, 187px, 242px, -3px);
     }
     .lh-export__dropdown {
       position: absolute;
