@@ -470,11 +470,8 @@
   margin: 0 var(--audit-item-gap);
 }
 .lh-chevron-container {
+  margin-left: auto;
   margin-right: 0;
-}
-
-.lh-audit__display-text {
-  flex: 1;
 }
 
 /* Prepend display text with em dash separator. But not in Opportunities. */
