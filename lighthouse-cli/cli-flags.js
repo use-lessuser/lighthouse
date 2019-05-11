@@ -12,12 +12,21 @@ const pkg = require('../package.json');
 const printer = require('./printer');
 
 /**
- * @param {string=} manualArgv
+ * @param {(string | string[])[]} arr
+ * @return {string[]}
+ */
+function flatten(arr) {
+  /** @type {string[]} */
+  const result = [];
+  return result.concat(...arr);
+}
+
+/**
+ * @param {string[]} manualArgv
  * @return {LH.CliFlags}
  */
-function getFlags(manualArgv) {
-  // @ts-ignore yargs() is incorrectly typed as not returning itself
-  const y = manualArgv ? yargs(manualArgv) : yargs;
+function getFlags(...manualArgv) {
+  const y = manualArgv.length ? yargs(manualArgv) : yargs;
   return y.help('help')
       .version(() => pkg.version)
       .showHelpOnFail(false, 'Specify --help for available options')
@@ -152,6 +161,23 @@ function getFlags(manualArgv) {
       .default('enable-error-reporting', undefined) // Undefined so prompted by default
       .default('channel', 'cli')
       .check(/** @param {LH.CliFlags} argv */ (argv) => {
+        // ".middleware" does not exist in this version of yargs, so do some preprocessing here.
+        /** @type {(keyof LH.CliFlags)[]} */
+        const arrayKeys = [
+          'blockedUrlPatterns',
+          'onlyAudits',
+          'onlyCategories',
+          'skipAudits',
+          'output',
+          'plugins',
+        ];
+        arrayKeys.forEach(key => {
+          const input = /** @type {string[]} */ (argv[key]);
+          if (input) {
+            argv[key] = flatten(input.map(value => value.split(',')));
+          }
+        });
+
         // Lighthouse doesn't need a URL if...
         //   - We're just listing the available options.
         //   - We're just printing the config.

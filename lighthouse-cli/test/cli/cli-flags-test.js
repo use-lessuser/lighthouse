@@ -28,4 +28,14 @@ describe('CLI bin', function() {
       assert.ok(optionsWithDescriptions.includes(opt), `cli option '${opt}' has no description`);
     });
   });
+
+  it('array values support csv', () => {
+    const flags = getFlags(
+      'http://www.example.com',
+      '--only-categories=performance,seo',
+      '--skipAudits=unused-javascript,redirects',
+      '--skipAudits=bootup-time');
+    expect(flags.onlyCategories).toEqual(['performance', 'seo']);
+    expect(flags.skipAudits).toEqual(['unused-javascript', 'redirects', 'bootup-time']);
+  });
 });
