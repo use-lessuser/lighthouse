@@ -164,12 +164,11 @@ function getFlags(...manualArgv) {
         // ".middleware" does not exist in this version of yargs, so do some preprocessing here.
         /** @type {(keyof LH.CliFlags)[]} */
         const arrayKeys = [
-          'blockedUrlPatterns',
           'onlyAudits',
           'onlyCategories',
-          'skipAudits',
           'output',
           'plugins',
+          'skipAudits',
         ];
         arrayKeys.forEach(key => {
           const input = /** @type {string[]} */ (argv[key]);

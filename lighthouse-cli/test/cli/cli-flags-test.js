@@ -29,7 +29,7 @@ describe('CLI bin', function() {
     });
   });
 
-  it('array values support csv', () => {
+  it('array values support csv when appropriate', () => {
     const flags = getFlags(
       'http://www.example.com',
       '--only-categories=performance,seo',
@@ -37,5 +37,15 @@ describe('CLI bin', function() {
       '--skipAudits=bootup-time');
     expect(flags.onlyCategories).toEqual(['performance', 'seo']);
     expect(flags.skipAudits).toEqual(['unused-javascript', 'redirects', 'bootup-time']);
+  });
+
+  it('array values do not support csv when appropriate', () => {
+    const flags = getFlags(
+      'http://www.example.com',
+      '--chrome-flags="--window-size 800,600"',
+      '--chrome-flags="--enabled-features=NetworkService,VirtualTime"',
+      '--blockedUrlPatterns=.*x,y\\.png');
+    expect(flags.chromeFlags).toEqual(['"--window-size 800,600"', '"--enabled-features=NetworkService,VirtualTime"']);
+    expect(flags.blockedUrlPatterns).toEqual(['.*x,y\\.png']);
   });
 });
