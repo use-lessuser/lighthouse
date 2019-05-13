@@ -45,7 +45,10 @@ describe('CLI bin', function() {
       '--chrome-flags="--window-size 800,600"',
       '--chrome-flags="--enabled-features=NetworkService,VirtualTime"',
       '--blockedUrlPatterns=.*x,y\\.png');
-    expect(flags.chromeFlags).toEqual(['"--window-size 800,600"', '"--enabled-features=NetworkService,VirtualTime"']);
+    expect(flags.chromeFlags).toEqual([
+      '"--window-size 800,600"',
+      '"--enabled-features=NetworkService,VirtualTime"',
+    ]);
     expect(flags.blockedUrlPatterns).toEqual(['.*x,y\\.png']);
   });
 });

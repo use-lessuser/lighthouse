@@ -27,7 +27,8 @@ function flatten(arr) {
  */
 function getFlags(...manualArgv) {
   const y = manualArgv.length ? yargs(manualArgv) : yargs;
-  return y.help('help')
+  /** @type {LH.CliFlags} */
+  const argv = y.help('help')
       .version(() => pkg.version)
       .showHelpOnFail(false, 'Specify --help for available options')
 
@@ -161,22 +162,6 @@ function getFlags(...manualArgv) {
       .default('enable-error-reporting', undefined) // Undefined so prompted by default
       .default('channel', 'cli')
       .check(/** @param {LH.CliFlags} argv */ (argv) => {
-        // ".middleware" does not exist in this version of yargs, so do some preprocessing here.
-        /** @type {(keyof LH.CliFlags)[]} */
-        const arrayKeys = [
-          'onlyAudits',
-          'onlyCategories',
-          'output',
-          'plugins',
-          'skipAudits',
-        ];
-        arrayKeys.forEach(key => {
-          const input = /** @type {string[]} */ (argv[key]);
-          if (input) {
-            argv[key] = flatten(input.map(value => value.split(',')));
-          }
-        });
-
         // Lighthouse doesn't need a URL if...
         //   - We're just listing the available options.
         //   - We're just printing the config.
@@ -196,6 +181,24 @@ function getFlags(...manualArgv) {
           'For more information on Lighthouse, see https://developers.google.com/web/tools/lighthouse/.')
       .wrap(yargs.terminalWidth())
       .argv;
+
+  // ".middleware" does not exist in this version of yargs, so do some post-processing here.
+  /** @type {(keyof LH.CliFlags)[]} */
+  const arrayKeysThatSupportCsv = [
+    'onlyAudits',
+    'onlyCategories',
+    'output',
+    'plugins',
+    'skipAudits',
+  ];
+  arrayKeysThatSupportCsv.forEach(key => {
+    const input = /** @type {string[]} */ (argv[key]);
+    if (input) {
+      argv[key] = flatten(input.map(value => value.split(',')));
+    }
+  });
+
+  return argv;
 }
 
 module.exports = {
