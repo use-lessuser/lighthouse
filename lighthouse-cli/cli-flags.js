@@ -36,6 +36,9 @@ function getFlags(...manualArgv) {
       .example(
           'lighthouse <url> --view', 'Opens the HTML report in a browser after the run completes')
       .example(
+          'lighthouse <url> --only-categories=performance,pwa',
+          'Only run specific categories.')
+      .example(
           'lighthouse <url> --config-path=./myconfig.js',
           'Runs Lighthouse with your own configuration: custom audits, report generation, etc.')
       .example(
@@ -183,7 +186,7 @@ function getFlags(...manualArgv) {
       .argv;
 
   // ".middleware" does not exist in this version of yargs, so do some post-processing here.
-  /** @type {(keyof LH.CliFlags)[]} */
+  /** @type {Array<keyof LH.CliFlags>} */
   const arrayKeysThatSupportCsv = [
     'onlyAudits',
     'onlyCategories',
