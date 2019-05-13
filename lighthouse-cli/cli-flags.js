@@ -162,15 +162,21 @@ function getFlags(...manualArgv) {
       .default('channel', 'cli')
       .check(/** @param {LH.CliFlags} argv */ (argv) => {
         // ".middleware" does not exist in this version of yargs, so do some preprocessing here.
-        for (const _key of Object.keys(argv)) {
-          const key = /** @type {keyof argv} */ (_key);
-          const input = argv[key];
-          if (Array.isArray(input)) {
-            // These values are guarenteed to be strings.
-            const strings = /** @type {string[]} */ (input);
-            argv[key] = flatten(strings.map(value => value.split(',')));
+        /** @type {(keyof LH.CliFlags)[]} */
+        const arrayKeys = [
+          'blockedUrlPatterns',
+          'onlyAudits',
+          'onlyCategories',
+          'skipAudits',
+          'output',
+          'plugins',
+        ];
+        arrayKeys.forEach(key => {
+          const input = /** @type {string[]} */ (argv[key]);
+          if (input) {
+            argv[key] = flatten(input.map(value => value.split(',')));
           }
-        }
+        });
 
         // Lighthouse doesn't need a URL if...
         //   - We're just listing the available options.
